@@ -66,5 +66,6 @@ def pre_processamento(df_train, df_test):
   train['datetime_year'] = train['datetime_date'].dt.year
 
   train = train.drop('datetime_date', axis = 1)
+  train = train.drop(train[train['price'] == 0].index)
 
   return train,test
