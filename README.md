@@ -37,3 +37,18 @@ Para esse projeto foram adicionadas duas novas colunas, uma para estoque e outra
 
 
 
+#   Dícionario de dados
+
+- train_id or test_id: id do item no dataset.
+- name: Título do item listado.
+- item_condition_id: Condição do item listado, variando de 1 até 5.
+- category_name: Categoria atribuida ao item listado, composta de 3 categorias, sendo a segunda uma subcategoria da primeira e a terceira da segunda.
+- gen_cat: Categoria primária.
+- sub1_cat:	Categoria secundária.
+- sub2_cat:	Categoria terciária.
+- brand_name: Marca do item listado.
+- price: Valor do item vendido, o target. O valor está em USD.
+- shipping: 1 para frete pago pelo vendedor e 0 para o frete pago pelo comprador.
+- item_description: Descrição dos item listado.
+- datetime_month: Mês da venda.
+- datetime_year: Ano da venda.
