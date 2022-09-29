@@ -6,6 +6,8 @@ import re
 
 def text_preprocess(phrase):
     
+    #Função para "separação" de palavras, ex: Can't -> can not, objetivo de facilitar a limpeza, aonde não serão criadas duas palavras para cant/can not.
+    # Será feito para diversas palavras com a mesma condição.
     phrase = re.sub(r"won\'t", "will not", phrase)
     phrase = re.sub(r"can\'t", "can not", phrase)
     phrase = re.sub(r"n\'t", " not", phrase)
