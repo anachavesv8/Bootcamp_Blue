@@ -19,8 +19,12 @@ def text_preprocess(phrase):
     phrase = re.sub(r"\'ve", " have", phrase)
     phrase = re.sub(r"\'m", " am", phrase)
     
-    phrase = re.sub('https?://\S+| www.\S+', '', phrase) #Remoção de qualquer site que possa ter no nosso dataset
-    phrase = re.sub("[^a-zA-Z0-9' \n\.]", '', phrase)  #excluindo tudo o que não for letra e numero.
+    phrase = re.sub('https?://\S+| www.\S+', ' ', phrase) #Remoção de qualquer site que possa ter no nosso dataset
+    phrase = re.sub("[^a-zA-Z0-9' \n\.]", ' ', phrase)  #excluindo tudo o que não for letra e numero.
+    phrase = re.sub(r'([a-z0-9])\1{2,}', " ", phrase) #retirando letras repetidas mais de 2 vezes seguidas ex: "ele vaaai" -> "ele vai"
+    phrase = re.sub(r'\s+[0-9]{3,}\s+', " ", phrase)  # removendo numeros muito grandes com 3 digitos ou mais
+    phrase = re.sub(r'\s+([a-zA-Z])\1{1,}\s+', " ", phrase) #removendo letras repetidas isoladas ex: ele zz vai -> ele vai
+    
     
     phrase = re.sub(' +', ' ', phrase) #exclusão de espaços extras, ex: "eu    vou" -> "eu vou"
 
@@ -30,7 +34,7 @@ def text_preprocess(phrase):
     return phrase
 
 
-
+#Função proposta como adicional ao desafio do bootcamp, para adição de colunas de estoque e data.
 def pre_processamento(df_train, df_test):
   train = df_train
   test = df_test
@@ -86,9 +90,7 @@ def pre_processamento(df_train, df_test):
   train['gen_cat'] = gen_cat
   train['sub1_cat'] = sub1_cat
   train['sub2_cat'] = sub2_cat
-
-  train = train.drop('category_name' , axis = 1)
-
+    
   train['datetime_date'] = pd.to_datetime(train['date'], format = "%d-%m-%Y", errors = 'coerce')
   train.drop('date', axis = 1, inplace=True)
   train['datetime_month'] = train['datetime_date'].dt.month
@@ -98,3 +100,55 @@ def pre_processamento(df_train, df_test):
   train = train.drop(train[train['price'] == 0].index)
 
   return train,test
+
+
+#Função pra juntar as colunas de texto em uma só
+def textcolumns_junct(df):
+
+      #Preenchendo valores nulos com espaço em branco.
+      df[["name",
+          "brand_name",
+          "item_description"]] = df[["name",                            
+                                     "brand_name",
+                                     "item_description"]].fillna(" ")
+
+                                     
+      #Concatenando colunas de texto, adicionando um espaço em branco entre cada coluna para não juntar palavras.
+      df["item_description"] = [ df["name"]+" "+
+                                 df["brand_name"]+" "+
+                                 df["item_description"]]
+
+      #Removendo colunas duplicadas
+
+      df = df.drop(["name",
+                    "brand_name"] , axis = 1)
+
+      return df
+
+
+
+
+
+#função para stemm dos textos, será inserida dentro da função nlp
+def stemming(text):
+    porter = PorterStemmer()
+    stop_words = stopwords.words('english')
+    
+    result=[]
+    for word in text:
+        if word not in stop_words:
+            result.append(porter.stem(word))
+    return result
+
+
+
+#Correção de palavras
+def spell_check(text):
+    
+    result = []
+    spell = SpellChecker()
+    for word in text:
+        correct_word = spell.correction(word)
+        result.append(correct_word)
+    
+    return result
