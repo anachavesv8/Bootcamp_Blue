@@ -2,6 +2,8 @@ import random
 import numpy as np
 import pandas as pd
 import re
+from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
 
 
 
@@ -112,13 +114,13 @@ def textcolumns_junct(df):
           "item_description"]] = df[["name",                            
                                      "brand_name",
                                      "item_description"]].fillna(" ")
+       
+
                                      
       df["item_description"] =   df["name"]+" "+df["brand_name"]+" "+ df["item_description"]
                                  
-                                
-
+                            
       #Removendo colunas duplicadas
-
       df = df.drop(["name",
                     "brand_name"] , axis = 1)
 
@@ -141,6 +143,4 @@ def stemming(text):
         if word not in stop_words:
             result.append(porter.stem(word))
     return result
-
-
 
