@@ -104,7 +104,7 @@ def pre_processamento(df_train, df_test):
 
 
 #Função pra juntar as colunas de texto em uma só
-def textcolumns_junct2(df):
+def textcolumns_junct(df):
 
       #Preenchendo valores nulos com espaço em branco.
       df[["name",
@@ -112,13 +112,12 @@ def textcolumns_junct2(df):
           "item_description"]] = df[["name",                            
                                      "brand_name",
                                      "item_description"]].fillna(" ")
+
                                      
       df["item_description"] =   df["name"]+" "+df["brand_name"]+" "+ df["item_description"]
                                  
-                                
-
+                            
       #Removendo colunas duplicadas
-
       df = df.drop(["name",
                     "brand_name"] , axis = 1)
 
