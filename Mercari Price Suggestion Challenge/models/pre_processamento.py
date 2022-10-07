@@ -4,10 +4,11 @@ import pandas as pd
 import re
 
 
-def text_preprocess(phrase):
-    
-    #Função para "separação" de palavras, ex: Can't -> can not, objetivo de facilitar a limpeza, aonde não serão criadas duas palavras para cant/can not.
+
+   #Função para "separação" de palavras, ex: Can't -> can not, objetivo de facilitar a limpeza, aonde não serão criadas duas palavras para cant/can not.
     # Será feito para diversas palavras com a mesma condição.
+def text_preprocess(phrase):
+
     phrase = re.sub(r"won\'t", "will not", phrase)
     phrase = re.sub(r"can\'t", "can not", phrase)
     phrase = re.sub(r"n\'t", " not", phrase)
@@ -103,7 +104,7 @@ def pre_processamento(df_train, df_test):
 
 
 #Função pra juntar as colunas de texto em uma só
-def textcolumns_junct(df):
+def textcolumns_junct2(df):
 
       #Preenchendo valores nulos com espaço em branco.
       df[["name",
@@ -111,19 +112,20 @@ def textcolumns_junct(df):
           "item_description"]] = df[["name",                            
                                      "brand_name",
                                      "item_description"]].fillna(" ")
-
                                      
-      #Concatenando colunas de texto, adicionando um espaço em branco entre cada coluna para não juntar palavras.
-      df["item_description"] = [ df["name"]+" "+
-                                 df["brand_name"]+" "+
-                                 df["item_description"]]
+      df["item_description"] =   df["name"]+" "+df["brand_name"]+" "+ df["item_description"]
+                                 
+                                
 
       #Removendo colunas duplicadas
 
       df = df.drop(["name",
                     "brand_name"] , axis = 1)
 
+   
+
       return df
+
 
 
 
@@ -140,15 +142,3 @@ def stemming(text):
             result.append(porter.stem(word))
     return result
 
-
-
-#Correção de palavras
-def spell_check(text):
-    
-    result = []
-    spell = SpellChecker()
-    for word in text:
-        correct_word = spell.correction(word)
-        result.append(correct_word)
-    
-    return result
