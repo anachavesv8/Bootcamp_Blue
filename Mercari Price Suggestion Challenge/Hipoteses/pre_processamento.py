@@ -104,7 +104,7 @@ def pre_processamento(df_train, df_test):
 
 
 #Função pra juntar as colunas de texto em uma só
-def textcolumns_junct2(df):
+def textcolumns_junct(df):
 
       #Preenchendo valores nulos com espaço em branco.
       df[["name",
