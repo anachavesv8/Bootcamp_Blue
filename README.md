@@ -57,11 +57,11 @@ Para esse projeto foram adicionadas duas novas colunas, uma para estoque e outra
 
 # Bibliotecas usadas no modelo:
     
-Python                       3.10.4
-pandas                       1.4.2
-numpy                        1.22.3
-regex                        2022.6.2
-scipy                        1.8.0
-scikit-learn                 1.0.2
-nltk                         3.7
-lightgbm                     3.3.2
+- Python                       3.10.4
+- pandas                       1.4.2
+- numpy                        1.22.3
+- regex                        2022.6.2
+- scipy                        1.8.0
+- scikit-learn                 1.0.2
+- nltk                         3.7
+- lightgbm                     3.3.2
