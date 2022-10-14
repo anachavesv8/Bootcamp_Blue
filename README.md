@@ -54,8 +54,9 @@ Para esse projeto foram adicionadas duas novas colunas, uma para estoque e outra
 - datetime_year: Ano da venda.
 
 
-# Bibliotecas usadas:
 
+# Bibliotecas usadas no modelo:
+    
 Python                       3.10.4
 pandas                       1.4.2
 numpy                        1.22.3
