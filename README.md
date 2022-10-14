@@ -64,4 +64,4 @@ Para esse projeto foram adicionadas duas novas colunas, uma para estoque e outra
 - scipy                        1.8.0
 - scikit-learn                 1.0.2
 - nltk                         3.7
-- lightgbm                     3.3.2
+- keras                        2.9.0
